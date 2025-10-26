@@ -1,0 +1,29 @@
+name: Node JS on LightSail Ubuntu VPS 
+
+on:
+  push: 
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps: 
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Deploy to LightSail VPS
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.LIGHTSAIL_HOST }}
+        username: ${{ secrets.LIGHTSAIL_USERNAME }}
+        key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+        source: ./
+        target: /home/curosofttech-test/htdocs/test.curosofttech.com/
+        script: |
+          cd /home/curosofttech-test/htdocs/test.curosofttech.com/
+          npm install
+          pm2 restart all
