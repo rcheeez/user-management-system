@@ -21,9 +21,12 @@ jobs:
         host: ${{ secrets.LIGHTSAIL_HOST }}
         username: ${{ secrets.LIGHTSAIL_USERNAME }}
         password: ${{ secrets.LIGHTSAIL_PASSWORD }}
-        source: ./
-        target: /home/curosofttech-test/htdocs/test.curosofttech.com/
         script: |
           cd /home/curosofttech-test/htdocs/test.curosofttech.com/
+          if [ ! -d ".git" ]; then
+            git clone https://github.com/rcheeez/user-management-system.git .
+          else
+            git pull origin main
+          fi
           npm install
           pm2 restart all
