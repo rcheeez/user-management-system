@@ -20,7 +20,7 @@ jobs:
       with:
         host: ${{ secrets.LIGHTSAIL_HOST }}
         username: ${{ secrets.LIGHTSAIL_USERNAME }}
-        key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
+        password: ${{ secrets.LIGHTSAIL_PASSWORD }}
         source: ./
         target: /home/curosofttech-test/htdocs/test.curosofttech.com/
         script: |
